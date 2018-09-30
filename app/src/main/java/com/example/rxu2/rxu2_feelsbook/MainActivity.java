@@ -3,6 +3,7 @@ package com.example.rxu2.rxu2_feelsbook;
 import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v4.app.DialogFragment;
@@ -16,12 +17,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -85,15 +83,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DateEdit = (EditText) findViewById(R.id.edit_time); //Set Date
+        //Set Date
         tpTime = (TimePicker)findViewById(R.id.tpTime);
         tpTime.setIs24HourView(true);
         tpTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int i, int i1) {
                 String time = timePicker.getCurrentHour() + " : " + timePicker.getCurrentMinute();
+                DateEdit = (EditText) findViewById(R.id.edit_time);
                 String day = DateEdit.getText().toString();
-                changingDate = day +" " + time;
+                changingDate = day +"-" + time; //day is not shown
 
             }
         });
@@ -114,10 +113,21 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 setResult(RESULT_OK);
-                String text = emotion + " " + changingDate + " "+comm;
+                String text = emotion + " " + changingDate + " "+comm ;
                 saveInFile(text);
-                finish();
+                //finish();
 
+            }
+        });
+
+
+        history = (Button) findViewById(R.id.reviewButton);
+        history.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (MainActivity.this,TextViewActivity.class);
+                startActivity(intent);
             }
         });
 
