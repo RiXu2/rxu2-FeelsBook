@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">rxu2-FeelsBook</string>
+    <string-array name="feelingsArray">
+        <item>Affection</item>
+        <item>Lust</item>
+        <item>Longing</item>
+        <item>Cheerfulness</item>
+        <item>Zest</item>
+        <item>Contentment</item>
+        <item>Optimism</item>
+        <item>Relief</item>
+        <item>Surprise</item>
+        <item>Irritation</item>
+        <item>Exasperation</item>
+        <item>Rage</item>
+        <item>Disgust</item>
+        <item>Envy</item>
+        <item>Torment</item>
+        <item>Suffering</item>
+        <item>Sadness</item>
+        <item>Disappointment</item>
+        <item>Shame</item>
+        <item>Neglect</item>
+        <item>Sympathy</item>
+        <item>Horror</item>
+        <item>Nervousness</item>
+    </string-array>
+
 </resources>
