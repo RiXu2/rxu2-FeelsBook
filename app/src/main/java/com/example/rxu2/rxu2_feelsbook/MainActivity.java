@@ -106,13 +106,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         comment = findViewById(R.id.comment);
-        comm = comment.getText().toString();
 
         add = findViewById(R.id.addButton);
         add.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 setResult(RESULT_OK);
+                comm = comment.getText().toString();
                 String text = emotion + " " + changingDate + " "+comm ;
                 saveInFile(text);
                 //finish();
