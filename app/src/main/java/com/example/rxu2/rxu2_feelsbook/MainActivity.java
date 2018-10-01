@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private String changingDate,emotion,comm;
     private static final String FILENAME = "file.sav";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +40,13 @@ public class MainActivity extends AppCompatActivity {
         title.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         Date date = new Date();
         changingDate = date.toString();
+        comment = findViewById(R.id.comment);
 
-        checkDate = findViewById(R.id.checkDate);
+
+        checkDate = findViewById(R.id.checkDate); //show the current date to user, which is default date
         checkDate.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) { //current time, the default time of emotion
+            public void onClick(View v) {
                 Date date = new Date();
                 String curr_date = date.toString();
                 now_date = findViewById(R.id.current_time);
@@ -51,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Spinner spinner = (Spinner) findViewById(R.id.feels_spinner);
+
         // select emotions. category: Love = green, Joy = blue, surprise = black, anger = red, sadness = cyan, fear = magenta
+        Spinner spinner = (Spinner) findViewById(R.id.feels_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.feelingsArray, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -83,7 +87,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Set Date
+
+
+        //get new time as format hr:min
         tpTime = (TimePicker)findViewById(R.id.tpTime);
         tpTime.setIs24HourView(true);
         tpTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
@@ -92,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 String time = timePicker.getCurrentHour() + " : " + timePicker.getCurrentMinute();
                 DateEdit = (EditText) findViewById(R.id.edit_time);
                 String day = DateEdit.getText().toString();
-                changingDate = day +"-" + time; //day is not shown
+                changingDate = day +"-" + time;
 
             }
         });
@@ -100,13 +106,13 @@ public class MainActivity extends AppCompatActivity {
         changedate = findViewById(R.id.changeDate);
         changedate.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) { //current time, the default time of emotion
+            public void onClick(View v) {
                 temp.setText(changingDate);
             }
         });
 
-        comment = findViewById(R.id.comment);
 
+        //Button add, add the emotion to file
         add = findViewById(R.id.addButton);
         add.setOnClickListener(new View.OnClickListener() {
 
@@ -121,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+        //got to another page, which include the past emotion records and other functions(delete, edit,count)
         history = (Button) findViewById(R.id.reviewButton);
         history.setOnClickListener(new View.OnClickListener(){
 

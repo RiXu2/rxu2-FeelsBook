@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -38,7 +39,8 @@ public class TextViewActivity extends AppCompatActivity {
 
             public void onClick(View v) { //bu yun xing
                 try {
-                    FileReader fr = new FileReader(FILENAME);
+                    File file = new File(FILENAME);
+                    FileReader fr = new FileReader(file);
                     LineNumberReader lnr = new LineNumberReader(fr);
                     int countOfLines = 0;
                     while (lnr.readLine() != null) {

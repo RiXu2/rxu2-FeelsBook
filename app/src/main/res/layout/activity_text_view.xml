@@ -65,5 +65,12 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="406dp"
+        android:layout_height="200dp"
+        android:drawableRight="@drawable/icon"
+        android:padding="5dp"
+        android:text=" " />
+
 
 </LinearLayout>
