@@ -28,11 +28,12 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     private TextView title,now_date,temp;
-    private Button checkDate,changedate,add,history,tempButton;
+    private Button check,changedate,add,history,tempButton;
     private EditText DateEdit,comment;
     TimePicker tpTime;
     private String changingDate,emotion,comm;
     private static final String FILENAME = "file.sav";
+    private feels feel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +48,13 @@ public class MainActivity extends AppCompatActivity {
         comment = findViewById(R.id.comment);
 
 
-
-        checkDate = findViewById(R.id.checkDate); //show the current date to user, which is default date
-        checkDate.setOnClickListener(new View.OnClickListener() {
+        feel = new feels();
+        check = findViewById(R.id.check); //show default date and default feeling
+        check.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Date date = new Date();
-                String curr_date = ft.format(date);
                 now_date = findViewById(R.id.current_time);
-                now_date.setText(curr_date);
+                now_date.setText(feels.check_current_date()+" "+feels.check_defaultFeeling());
             }
         });
 
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 comm = comment.getText().toString();
-                String text = changingDate + " " + emotion + " "+comm ;
+                String text = changingDate + " " + emotion + " "+comm +'\n';
                 saveInFile(text);
                 //finish();
 
