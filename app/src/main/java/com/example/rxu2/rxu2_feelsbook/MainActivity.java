@@ -21,6 +21,7 @@ import android.widget.TimePicker;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -40,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
         title = findViewById(R.id.titleMain);
         title.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         Date date = new Date();
-        changingDate = date.toString();
+        final SimpleDateFormat ft = new SimpleDateFormat ("dd '-' hh:mm");
+        final SimpleDateFormat ft2 = new SimpleDateFormat ("dd");
+        changingDate = ft.format(date);
         comment = findViewById(R.id.comment);
 
 
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 Date date = new Date();
-                String curr_date = date.toString();
+                String curr_date = ft.format(date);
                 now_date = findViewById(R.id.current_time);
                 now_date.setText(curr_date);
             }
@@ -99,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
             public void onTimeChanged(TimePicker timePicker, int i, int i1) {
                 String time = timePicker.getCurrentHour() + " : " + timePicker.getCurrentMinute();
                 DateEdit = (EditText) findViewById(R.id.edit_time);
+                Date d = new Date();
+                String str = ft2.format(d);
+                DateEdit.setText(str);
                 String day = DateEdit.getText().toString();
                 changingDate = day +"-" + time;
 
@@ -121,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 comm = comment.getText().toString();
-                String text = emotion + " " + changingDate + " "+comm ;
+                String text = changingDate + " " + emotion + " "+comm ;
                 saveInFile(text);
                 //finish();
 

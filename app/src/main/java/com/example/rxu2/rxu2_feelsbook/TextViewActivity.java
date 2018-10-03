@@ -1,5 +1,6 @@
 package com.example.rxu2.rxu2_feelsbook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,12 +22,14 @@ import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
 public class TextViewActivity extends AppCompatActivity {
-    private TextView countnum,temptext;
-    private Button count,delete,edit,update;
+    private TextView countnum;
+    private Button count,delete,edit,update,viewall;
     private static final String FILENAME = "file.sav";
     private EditText editText;
 
@@ -38,7 +41,6 @@ public class TextViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_view);
-        temptext = findViewById(R.id.temptext);
         update = findViewById(R.id.updateButton);
 
         list = (ListView) findViewById(R.id.oldEmotions); //show all history emotion in listview
@@ -47,16 +49,16 @@ public class TextViewActivity extends AppCompatActivity {
         list.setAdapter(adapter);
         final String[] emos = loadFromFile();
         for(int i = 0; i < emos.length;i++){
-            temptext.setText(emos[i]);
             arrayList.add(emos[i]);
-            adapter.notifyDataSetChanged();
+            //adapter.notifyDataSetChanged();
         }
+        Collections.sort(arrayList);
+        adapter.notifyDataSetChanged();
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for(int i = 0; i < emos.length;i++){
-                    temptext.setText(emos[i]);
                     arrayList.add(emos[i]);
                     adapter.notifyDataSetChanged();
                 }
@@ -75,6 +77,16 @@ public class TextViewActivity extends AppCompatActivity {
             }
         });
 
+
+        viewall = findViewById(R.id.vAllButton);
+        viewall.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (TextViewActivity.this,ViewActivity.class);
+                startActivity(intent);
+            }
+        });
 
         delete = findViewById(R.id.deleteButton);
         edit = findViewById(R.id.editButton);
