@@ -3,8 +3,10 @@ package com.example.rxu2.rxu2_feelsbook;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -23,38 +25,57 @@ import java.util.List;
 
 
 public class TextViewActivity extends AppCompatActivity {
-    private TextView countnum;
-    private Button count,delete,edit;
-    private TextView oldemotion;
+    private TextView countnum,temptext;
+    private Button count,delete,edit,update;
     private static final String FILENAME = "file.sav";
     private EditText editText;
+
+    private ListView list;
+    private ArrayAdapter<String> adapter;
+    private ArrayList<String> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_view);
+        temptext = findViewById(R.id.temptext);
+        update = findViewById(R.id.updateButton);
+
+        list = (ListView) findViewById(R.id.oldEmotions); //show all history emotion in listview
+        arrayList = new ArrayList<String>();
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList);
+        list.setAdapter(adapter);
+        final String[] emos = loadFromFile();
+        for(int i = 0; i < emos.length;i++){
+            temptext.setText(emos[i]);
+            arrayList.add(emos[i]);
+            adapter.notifyDataSetChanged();
+        }
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i = 0; i < emos.length;i++){
+                    temptext.setText(emos[i]);
+                    arrayList.add(emos[i]);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+
+        final int itemInList = adapter.getCount(); //count of the history emotions
+        final String itemInListStr = Integer.toString(itemInList);
         count = findViewById(R.id.countButton);
         countnum = findViewById(R.id.countEmotion);
         count.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) { //bu yun xing
-                try {
-                    File file = new File(FILENAME);
-                    FileReader fr = new FileReader(file);
-                    LineNumberReader lnr = new LineNumberReader(fr);
-                    int countOfLines = 0;
-                    while (lnr.readLine() != null) {
-                        countOfLines++;
-                    }
-                    lnr.close();
-                    countnum.setText(Integer.toString(countOfLines));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+            public void onClick(View v) {
+                countnum.setText(itemInListStr);
             }
         });
-        oldemotion = (TextView) findViewById(R.id.oldEmotions);
+
+
         delete = findViewById(R.id.deleteButton);
         edit = findViewById(R.id.editButton);
         delete.setOnClickListener(new View.OnClickListener() { //bu yun xing
@@ -113,14 +134,6 @@ public class TextViewActivity extends AppCompatActivity {
             }
         });
 
-    }
-    protected void onStart() {
-        // TODO Auto-generated method stub
-        super.onStart();
-        String[] emos = loadFromFile();
-        for(int i = 0; i < emos.length;i++){
-            oldemotion.setText(emos[i]);
-        }
     }
     private String[] loadFromFile() {
         ArrayList<String> emos = new ArrayList<String>();

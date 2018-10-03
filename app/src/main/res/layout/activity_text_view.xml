@@ -20,17 +20,17 @@
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:text="none"/>
+            android:layout_marginTop="20dp" />
     </LinearLayout>
-    <TextView
+
+    <ListView
         android:id="@+id/oldEmotions"
         android:layout_width="350dp"
         android:layout_height="250dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp">
 
-    </TextView>
+    </ListView>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="360dp"
@@ -43,6 +43,21 @@
             android:text="delete"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp" />
+
+        <Button
+            android:id="@+id/updateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:text="update" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp">
         <Button
             android:id="@+id/editButton"
             android:layout_width="70dp"
@@ -59,18 +74,18 @@
 
         <EditText
             android:id="@+id/editText"
-            android:layout_width="85dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="173dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp" />
 
     </LinearLayout>
-
     <TextView
-        android:layout_width="406dp"
+        android:id="@+id/temptext"
+        android:layout_width="350dp"
         android:layout_height="200dp"
-        android:drawableRight="@drawable/icon"
-        android:padding="5dp"
-        android:text=" " />
+        android:layout_marginLeft="20dp"/>
+
 
 
 </LinearLayout>

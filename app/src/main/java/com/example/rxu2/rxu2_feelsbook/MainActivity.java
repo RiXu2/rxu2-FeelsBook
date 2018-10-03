@@ -14,23 +14,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView title,now_date,temp;
-    private Button checkDate,changedate,add,history;
+    private Button checkDate,changedate,add,history,tempButton;
     private EditText DateEdit,comment;
     TimePicker tpTime;
     private String changingDate,emotion,comm;
     private static final String FILENAME = "file.sav";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Date date = new Date();
         changingDate = date.toString();
         comment = findViewById(R.id.comment);
+
 
 
         checkDate = findViewById(R.id.checkDate); //show the current date to user, which is default date
