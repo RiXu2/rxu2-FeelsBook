@@ -17,7 +17,5 @@ Intro
  * edit button,click the line in list you want to edit
  * if you want to check the count after edit, please go back last page first
  * and check the history again, and check count
- *
  *When delete all of items in the list, the app will be force to shutdown
- *
- if cannot see the UML in sub directory, go to sub branch doc
+ *if cannot see the UML diagram .png in sub directory, go to sub branch doc
