@@ -14,6 +14,11 @@
             android:text="count"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"/>
+        <EditText
+            android:id="@+id/num"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"/>
 
         <TextView
             android:id="@+id/countEmotion"
@@ -36,6 +41,7 @@
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp">
+
         <Button
             android:id="@+id/deleteButton"
             android:layout_width="80dp"
@@ -43,14 +49,6 @@
             android:text="delete"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp">
-
         <Button
             android:id="@+id/editButton"
             android:layout_width="70dp"
@@ -76,7 +74,7 @@
     <TextView
         android:layout_width="270dp"
         android:layout_height="20dp"
-        android:text="(format: dd-hh:mm emotion comment )"
+        android:text="(format: dd - hh : mm emotion comment )"
         android:layout_marginLeft="95dp" />
 
 

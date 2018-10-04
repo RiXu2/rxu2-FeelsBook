@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     TimePicker tpTime;
     private String changingDate,emotion,comm;
     private static final String FILENAME = "file.sav";
+    private static final String FILENAME1 = "emotionList.sav";
     private feels feel;
 
     @Override
@@ -128,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 comm = comment.getText().toString();
                 String text = changingDate + " " + emotion + " "+comm +'\n';
                 saveInFile(text);
+                saveEmotion(emotion+'\n');
                 //finish();
 
             }
@@ -150,6 +152,21 @@ public class MainActivity extends AppCompatActivity {
     private void saveInFile(String text) {
         try {
             FileOutputStream fos = openFileOutput(FILENAME,
+                    Context.MODE_APPEND);
+            byte[] strToBytes = text.getBytes();
+            fos.write(strToBytes);
+            fos.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    private void saveEmotion(String text) {
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME1,
                     Context.MODE_APPEND);
             byte[] strToBytes = text.getBytes();
             fos.write(strToBytes);
