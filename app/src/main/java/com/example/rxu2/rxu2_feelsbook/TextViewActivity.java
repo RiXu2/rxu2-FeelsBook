@@ -143,7 +143,6 @@ public class TextViewActivity extends AppCompatActivity {
             String new_str = editText.getText().toString();
             String ori_str = arrayList.get(position).toString();
             arrayList.remove(position);
-            //countnum.setText("aaa");
             try {
                 deleteFromFile(ori_str);
             } catch (IOException e) {
