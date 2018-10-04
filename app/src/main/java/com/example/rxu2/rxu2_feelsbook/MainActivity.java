@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
                 comm = comment.getText().toString();
                 String text = changingDate + " " + emotion + " "+comm +'\n';
                 saveInFile(text);
-                //finish();
 
             }
         });

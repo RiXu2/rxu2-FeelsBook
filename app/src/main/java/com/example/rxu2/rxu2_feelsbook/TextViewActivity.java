@@ -64,7 +64,6 @@ public class TextViewActivity extends AppCompatActivity {
         final String[] emos = loadFromFile();
         for(int i = 0; i < emos.length;i++){
             arrayList.add(emos[i]);
-            //adapter.notifyDataSetChanged();
         }
         Collections.sort(arrayList);
         adapter.notifyDataSetChanged();
