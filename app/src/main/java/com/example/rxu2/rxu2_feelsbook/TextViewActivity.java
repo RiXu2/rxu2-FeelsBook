@@ -6,6 +6,8 @@
  * edit button,click the line in list you want to edit
  * if you want to check the count after edit, please go back last page first
  * and check the history again, and check count
+ *
+ *When delete all of items in the list, the app will be force to shutdown
  */
 package com.example.rxu2.rxu2_feelsbook;
 
@@ -140,6 +142,7 @@ public class TextViewActivity extends AppCompatActivity {
             editText = findViewById(R.id.editText);
             String new_str = editText.getText().toString();
             String ori_str = arrayList.get(position).toString();
+            arrayList.remove(position);
             //countnum.setText("aaa");
             try {
                 deleteFromFile(ori_str);
