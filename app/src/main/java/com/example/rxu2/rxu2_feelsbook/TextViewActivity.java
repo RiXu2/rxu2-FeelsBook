@@ -1,3 +1,12 @@
+/**
+ * Count button is count how many times one feeling appears in list
+ * Don't press space after enter the feeling!!
+ * Delete button: click button first, then click the line in listView
+ * Edit button: enter new feelings as the format shows, and then click the
+ * edit button,click the line in list you want to edit
+ * if you want to check the count after edit, please go back last page first
+ * and check the history again, and check count
+ */
 package com.example.rxu2.rxu2_feelsbook;
 
 import android.content.Context;
@@ -35,7 +44,6 @@ public class TextViewActivity extends AppCompatActivity {
     private TextView countnum;
     private Button count,delete,edit;
     private static final String FILENAME = "file.sav";
-    private static final String FILENAME1 = "emotionList.sav";
     private EditText editText,num;
 
     private ListView list;
@@ -51,7 +59,6 @@ public class TextViewActivity extends AppCompatActivity {
         arrayList = new ArrayList<String>();
         adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList);
         list.setAdapter(adapter);
-        //list.setOnItemClickListener(MshowforItem);
         final String[] emos = loadFromFile();
         for(int i = 0; i < emos.length;i++){
             arrayList.add(emos[i]);
@@ -62,7 +69,7 @@ public class TextViewActivity extends AppCompatActivity {
 
 
          //count of the history emotions
-        final String[] feelList = loadEmotion();
+        final String[] feelList = loadFromFile();
         num = findViewById(R.id.num);
         count = findViewById(R.id.countButton);
         countnum = findViewById(R.id.countEmotion);
@@ -76,7 +83,8 @@ public class TextViewActivity extends AppCompatActivity {
                     final String checkedFeel = num.getText().toString();
                     int a = 0;
                     for(int i = 0; i < feelList.length;i++){
-                        if(feelList[i].toString().equals(checkedFeel.toString())){
+                        String[] word = feelList[i].split("\\s+");
+                        if(word[3].toString().equals(checkedFeel.toString())){
                             a++;
                         }
                         countnum.setText(Integer.toString(a));
@@ -124,26 +132,7 @@ public class TextViewActivity extends AppCompatActivity {
         }
         return emos.toArray(new String[emos.size()]);
     }
-    private String[] loadEmotion() {
-        ArrayList<String> emos = new ArrayList<String>();
-        try {
-            FileInputStream fis = openFileInput(FILENAME1);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-            String line = in.readLine();
-            while (line != null) {
-                emos.add(line);
-                line = in.readLine();
-            }
 
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return emos.toArray(new String[emos.size()]);
-    }
     private AdapterView.OnItemClickListener MshowforItem = new AdapterView.OnItemClickListener() { //edit by click listView
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) { //enter new feel first,then click related
@@ -151,12 +140,13 @@ public class TextViewActivity extends AppCompatActivity {
             editText = findViewById(R.id.editText);
             String new_str = editText.getText().toString();
             String ori_str = arrayList.get(position).toString();
+            //countnum.setText("aaa");
             try {
                 deleteFromFile(ori_str);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            arrayList.set(position,new_str);
+            arrayList.set(position,new_str+'\n');
             tvTemp.setText(arrayList.get(position));
             adapter.notifyDataSetChanged();
             saveInFile(new_str);
@@ -167,35 +157,34 @@ public class TextViewActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) { //enter new feel first,then click related
             String deleteText;
             deleteText = arrayList.get(position).toString();
+            arrayList.remove(position);
+            adapter.notifyDataSetChanged();
             try {
                 deleteFromFile(deleteText);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            arrayList.remove(position);
-            adapter.notifyDataSetChanged();
 
         }
     };
     private void deleteFromFile(String text) throws IOException {
-        File inputFile = new File(FILENAME);
-        File tempFile = new File("myTempFile.sav");
-
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-        String lineToRemove = text;
-        String currentLine;
-
-        while((currentLine = reader.readLine()) != null) {
-            // trim newline when comparing with lineToRemove
-            String trimmedLine = currentLine.trim();
-            if(trimmedLine.equals(lineToRemove)) continue;
-            writer.write(currentLine + System.getProperty("line.separator"));
+        int num = list.getAdapter().getCount();
+        countnum.setText(Integer.toString(num));
+        FileOutputStream fos = openFileOutput(FILENAME,
+                0);
+        String tempStr = arrayList.get(0) + '\n';
+        byte[] strToBytes = tempStr.getBytes();
+        fos.write(strToBytes);
+        fos.close();
+        for(int i = 1; i<num;i++){
+            FileOutputStream fos1 = openFileOutput(FILENAME,
+                    Context.MODE_APPEND);
+            String tempStr1 = arrayList.get(i) + '\n';
+            byte[] ToBytes = tempStr1.getBytes();
+            fos1.write(ToBytes);
+            fos1.close();
         }
-        writer.close();
-        reader.close();
-        boolean successful = tempFile.renameTo(inputFile);
+
     }
     private void saveInFile(String text) {
         try {

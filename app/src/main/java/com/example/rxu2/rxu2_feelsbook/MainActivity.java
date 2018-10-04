@@ -1,3 +1,15 @@
+/**
+ * Intro
+ * One click on add, there are default time and feeling, the time is current time,
+ * and feeling is Affection.
+ * Check button is showing the default value which gonna be add to feels book,
+ * if user just click add button.
+ * The user can choose the feelings. Different color represents different kind of feeling
+ * User can change date by enter the day first, and adjust time ,finally click change
+ * date button. The new date will show below
+ * The comment is optional, just type the comment before add one emotion
+ * View history button is go to another page where has the listView of the history of emotion
+ */
 package com.example.rxu2.rxu2_feelsbook;
 
 import android.app.Activity;
@@ -33,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     TimePicker tpTime;
     private String changingDate,emotion,comm;
     private static final String FILENAME = "file.sav";
-    private static final String FILENAME1 = "emotionList.sav";
     private feels feel;
 
     @Override
@@ -43,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         title = findViewById(R.id.titleMain);
         title.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         Date date = new Date();
-        final SimpleDateFormat ft = new SimpleDateFormat ("dd '-' hh:mm");
+        final SimpleDateFormat ft = new SimpleDateFormat ("dd'-'hh : mm");
         final SimpleDateFormat ft2 = new SimpleDateFormat ("dd");
         changingDate = ft.format(date);
         comment = findViewById(R.id.comment);
@@ -129,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
                 comm = comment.getText().toString();
                 String text = changingDate + " " + emotion + " "+comm +'\n';
                 saveInFile(text);
-                saveEmotion(emotion+'\n');
                 //finish();
 
             }
@@ -152,21 +162,6 @@ public class MainActivity extends AppCompatActivity {
     private void saveInFile(String text) {
         try {
             FileOutputStream fos = openFileOutput(FILENAME,
-                    Context.MODE_APPEND);
-            byte[] strToBytes = text.getBytes();
-            fos.write(strToBytes);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    private void saveEmotion(String text) {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME1,
                     Context.MODE_APPEND);
             byte[] strToBytes = text.getBytes();
             fos.write(strToBytes);
