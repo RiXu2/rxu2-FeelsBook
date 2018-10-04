@@ -169,7 +169,6 @@ public class TextViewActivity extends AppCompatActivity {
     };
     private void deleteFromFile(String text) throws IOException {
         int num = list.getAdapter().getCount();
-        countnum.setText(Integer.toString(num));
         FileOutputStream fos = openFileOutput(FILENAME,
                 0);
         String tempStr = arrayList.get(0) + '\n';
