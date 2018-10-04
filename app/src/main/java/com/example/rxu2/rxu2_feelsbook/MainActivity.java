@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 now_date = findViewById(R.id.current_time);
-                now_date.setText(feels.check_current_date()+" "+feels.check_defaultFeeling());
+                now_date.setText(checkDefault(feel));
             }
         });
 
@@ -157,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private String checkDefault(feels feel){
+        return feel.check_current_date()+" "+feel.check_defaultFeeling();
     }
     private void saveInFile(String text) {
         try {
